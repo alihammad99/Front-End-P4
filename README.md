@@ -1,8 +1,13 @@
-Project 4 - Front-end Dashboard
+# OC P4
+In this project, I have made a simple form works effeciantly using Javascript.<br>
+You can find form validation error messages, close window function, and success message on submission.
 
-This repo contains all the starting code you need to add the functionality requirements/deliverables for Project 4.
+# Issues Solutions
+The main repository represents the start point.<br>
+The solutions of issues can be found as branches under title of solution_number.<br>
+Not to mention, I have made a pull request for all solutions to compare  the changes in a proper way.
 
-1. Fork this repository.
-2. you may also download the entire project to your computer, suggested editor is VS Code and you may use Docker, but it's not required.
-3. There are no dependencies
-4. Remember you need to use custom CSS and Vanilla JavaScript, no jquery, no bootstrap, etc.
+# Live Preview
+I have deployed this website to Netlify.<br>
+A preview demo can be found via: https://p4-form-alihammad.netlify.app/
+
