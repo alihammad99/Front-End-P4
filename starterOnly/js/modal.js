@@ -42,7 +42,7 @@ const firstName = document.getElementById("first"),
   successMsg = document.getElementById("successMsg"),
   errorMsg = document.getElementsByClassName("error");
 
-let verification = {
+let verificationObj = {
   FirstName: false,
   LastName: false,
   Email: false,
@@ -60,7 +60,7 @@ const checkFirstName = (id, serial, message) => {
   errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
     ? message
     : "";
-  verification.FirstName =
+  verificationObj.FirstName =
     id.value === "" || id.value.length < 2 ? false : true;
 };
 
@@ -69,14 +69,14 @@ const checkLastName = (id, serial, message) => {
   errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
     ? message
     : "";
-  verification.LastName = id.value === "" || id.value.length < 2 ? false : true;
+  verificationObj.LastName = id.value === "" || id.value.length < 2 ? false : true;
 };
 
 // ---- Email Validation
 const checkEmail = (id, serial, message) => {
   errorMsg[serial].innerHTML =
     id.value.includes("@") && id.value.includes(".") ? "" : message;
-  verification.Email =
+  verificationObj.Email =
     id.value.includes("@") && id.value.includes(".") ? true : false;
 };
 
@@ -93,13 +93,13 @@ const checkBirth = (id, serial, message) => {
 
   errorMsg[serial].innerHTML =
     id.value == "" || id.value >= nowDate ? message : "";
-  verification.BirthDate = id.value === "" ? false : true;
+  verificationObj.BirthDate = id.value === "" ? false : true;
 };
 
 // ---- Quantity Validation
 const checkQuantity = (id, serial, message) => {
   errorMsg[serial].innerHTML = id.value === "" ? message : "";
-  verification.Quantity = id.value === "" ? false : true;
+  verificationObj.Quantity = id.value === "" ? false : true;
 };
 
 // ---- Location Validation
@@ -108,7 +108,7 @@ const checkLocation = (serial, message) => {
     if (country[cityNum].checked) {
       console.log(country[cityNum].value);
       errorMsg[serial].innerHTML = "";
-      verification.Location = true;
+      verificationObj.Location = true;
 
       for (let checkboxBorder = 0; checkboxBorder < 6; checkboxBorder++) {
         document.getElementsByClassName("checkbox-icon")[
@@ -118,7 +118,7 @@ const checkLocation = (serial, message) => {
 
       return;
     }
-    verification.Location = false;
+    verificationObj.Location = false;
     errorMsg[serial].innerHTML = message;
     document.getElementsByClassName("checkbox-icon")[cityNum].style.borderColor =
       "red";
@@ -128,7 +128,7 @@ const checkLocation = (serial, message) => {
 // ---- Terms Agreement Validation
 const termsAgreement = (serial, message) => {
   errorMsg[serial].innerHTML = agreeToTerms.checked ? "" : message;
-  verification.Terms = agreeToTerms.checked ? true : false;
+  verificationObj.Terms = agreeToTerms.checked ? true : false;
 };
 
 // ---------------- Form Submition Function ----------------
@@ -145,13 +145,13 @@ const validate = (e) => {
   termsAgreement(6, "You must check to agree to terms and conditions.");
 
   if (
-    verification.FirstName &&
-    verification.LastName &&
-    verification.Email &&
-    verification.BirthDate &&
-    verification.Quantity &&
-    verification.Location &&
-    verification.Terms
+    verificationObj.FirstName &&
+    verificationObj.LastName &&
+    verificationObj.Email &&
+    verificationObj.BirthDate &&
+    verificationObj.Quantity &&
+    verificationObj.Location &&
+    verificationObj.Terms
   ) {
     form.style.display = "none";
     close_btn.style.display = "block";
