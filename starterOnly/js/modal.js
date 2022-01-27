@@ -57,16 +57,18 @@ const letters = new RegExp("^[a-zA-Z]+$");
 
 // ---- First Name Validation
 const checkFirstName = (id, serial, message) => {
-  errorMsg[serial].innerHTML =
-  !(id.value.length > 1 && letters.test(id.value)) ? message : "";
+  errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
+    ? message
+    : "";
   verification.FirstName =
     id.value === "" || id.value.length < 2 ? false : true;
 };
 
 // ---- Last Name Validation
 const checkLastName = (id, serial, message) => {
-  errorMsg[serial].innerHTML =
-  !(id.value.length > 1 && letters.test(id.value)) ? message : "";
+  errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
+    ? message
+    : "";
   verification.LastName = id.value === "" || id.value.length < 2 ? false : true;
 };
 
@@ -81,15 +83,16 @@ const checkEmail = (id, serial, message) => {
 // ---- Birthdate Validation
 const checkBirth = (id, serial, message) => {
   //Geting the date
-  const date = new Date()
-  const day = date.getUTCDate()
-  const month = ("0" + (date.getMonth() + 1)).slice(-2)
-  const year = date.getFullYear()
-  
-  //Creating a date in form of the same input date form
-  const nowDate = `${year}-${month}-${day}`
+  const date = new Date();
+  const day = date.getUTCDate();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
 
-  errorMsg[serial].innerHTML = (id.value === "" || id.value >= nowDate) ? message : "";
+  //Creating a date in form of the same input date form
+  const nowDate = `${year}-${month}-${day}`;
+
+  errorMsg[serial].innerHTML =
+    id.value == "" || id.value >= nowDate ? message : "";
   verification.BirthDate = id.value === "" ? false : true;
 };
 
@@ -101,22 +104,23 @@ const checkQuantity = (id, serial, message) => {
 
 // ---- Location Validation
 const checkLocation = (serial, message) => {
-  for (let i = 0; i < 6; i++) {
-    if (country[i].checked) {
-      console.log(country[i].value);
+  for (let cityNum = 0; cityNum < 6; cityNum++) {
+    if (country[cityNum].checked) {
+      console.log(country[cityNum].value);
       errorMsg[serial].innerHTML = "";
       verification.Location = true;
 
-      for (let x = 0; x < 6; x++) {
-        document.getElementsByClassName("checkbox-icon")[x].style.borderColor =
-          "green";
+      for (let checkboxBorder = 0; checkboxBorder < 6; checkboxBorder++) {
+        document.getElementsByClassName("checkbox-icon")[
+          checkboxBorder
+        ].style.borderColor = "green";
       }
 
       return;
     }
     verification.Location = false;
     errorMsg[serial].innerHTML = message;
-    document.getElementsByClassName("checkbox-icon")[i].style.borderColor =
+    document.getElementsByClassName("checkbox-icon")[cityNum].style.borderColor =
       "red";
   }
 };
