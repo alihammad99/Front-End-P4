@@ -39,7 +39,7 @@ const firstName = document.getElementById("first"),
   form = document.getElementById("form"),
   submit = document.getElementById("submit"),
   close_btn = document.getElementById("close-btn"),
-  successMsg = document.getElementById("form-success-message"),
+  successMsg = document.getElementById("successMsg"),
   errorMsg = document.getElementsByClassName("error");
 
 let verification = {
@@ -53,11 +53,12 @@ let verification = {
 };
 
 // ---------------- Form Validation ----------------
+const letters = new RegExp("^[a-zA-Z]+$");
 
 // ---- First Name Validation
 const checkFirstName = (id, serial, message) => {
   errorMsg[serial].innerHTML =
-    id.value === "" || id.value.length < 2 ? message : "";
+  !(id.value.length > 1 && letters.test(id.value)) ? message : "";
   verification.FirstName =
     id.value === "" || id.value.length < 2 ? false : true;
 };
@@ -65,7 +66,7 @@ const checkFirstName = (id, serial, message) => {
 // ---- Last Name Validation
 const checkLastName = (id, serial, message) => {
   errorMsg[serial].innerHTML =
-    id.value === "" || id.value.length < 2 ? message : "";
+  !(id.value.length > 1 && letters.test(id.value)) ? message : "";
   verification.LastName = id.value === "" || id.value.length < 2 ? false : true;
 };
 
@@ -79,7 +80,16 @@ const checkEmail = (id, serial, message) => {
 
 // ---- Birthdate Validation
 const checkBirth = (id, serial, message) => {
-  errorMsg[serial].innerHTML = id.value === "" ? message : "";
+  //Geting the date
+  const date = new Date()
+  const day = date.getUTCDate()
+  const month = ("0" + (date.getMonth() + 1)).slice(-2)
+  const year = date.getFullYear()
+  
+  //Creating a date in form of the same input date form
+  const nowDate = `${year}-${month}-${day}`
+
+  errorMsg[serial].innerHTML = (id.value === "" || id.value >= nowDate) ? message : "";
   verification.BirthDate = id.value === "" ? false : true;
 };
 
@@ -131,13 +141,13 @@ const validate = (e) => {
   termsAgreement(6, "You must check to agree to terms and conditions.");
 
   if (
-    verification.FirstName === true &&
-    verification.LastName === true &&
-    verification.Email === true &&
-    verification.BirthDate === true &&
-    verification.Quantity === true &&
-    verification.Location === true &&
-    verification.Terms === true
+    verification.FirstName &&
+    verification.LastName &&
+    verification.Email &&
+    verification.BirthDate &&
+    verification.Quantity &&
+    verification.Location &&
+    verification.Terms
   ) {
     form.style.display = "none";
     close_btn.style.display = "block";
