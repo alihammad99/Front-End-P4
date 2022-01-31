@@ -20,15 +20,15 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-//Close window
+//Creating a function to close the pop-up form
 function closeWindow() {
   if (modalbg.style.display === "block") {
-    (modalbg.style.display = "none");
+    modalbg.style.display = "none";
   }
 }
 
 // Form Variables
-
+// receiving the elements selectors
 const firstName = document.getElementById("first"),
   lastName = document.getElementById("last"),
   email = document.getElementById("email"),
@@ -42,6 +42,8 @@ const firstName = document.getElementById("first"),
   successMsg = document.getElementById("successMsg"),
   errorMsg = document.getElementsByClassName("error");
 
+//Creating a verification object for validation errors
+// The verification values must be true to submit the form
 let verificationObj = {
   FirstName: false,
   LastName: false,
@@ -55,32 +57,32 @@ let verificationObj = {
 // ---------------- Form Validation ----------------
 const letters = new RegExp("^[a-zA-Z]+$");
 
-// ---- First Name Validation
+// ---- Creating a function for First Name Validation
 const checkFirstName = (id, serial, message) => {
   errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
     ? message
     : "";
-  verificationObj.FirstName =
-    id.value === "" || id.value.length < 2 ? false : true;
+  verificationObj.FirstName = id.value.length > 1;
 };
 
-// ---- Last Name Validation
+// ---- Creating a function for Last Name Validation
 const checkLastName = (id, serial, message) => {
   errorMsg[serial].innerHTML = !(id.value.length > 1 && letters.test(id.value))
     ? message
     : "";
-  verificationObj.LastName = id.value === "" || id.value.length < 2 ? false : true;
+  //Updating the verificationObj value to true or false
+  verificationObj.LastName = id.value.length > 1;
 };
 
-// ---- Email Validation
+// ---- Creating a function for Email Validation
 const checkEmail = (id, serial, message) => {
   errorMsg[serial].innerHTML =
     id.value.includes("@") && id.value.includes(".") ? "" : message;
-  verificationObj.Email =
-    id.value.includes("@") && id.value.includes(".") ? true : false;
+  //Updating the verificationObj value to true or false
+  verificationObj.Email = id.value.includes("@") && id.value.includes(".");
 };
 
-// ---- Birthdate Validation
+// ---- Creating a function for Birthdate Validation
 const checkBirth = (id, serial, message) => {
   //Geting the date
   const date = new Date();
@@ -93,45 +95,49 @@ const checkBirth = (id, serial, message) => {
 
   errorMsg[serial].innerHTML =
     id.value == "" || id.value >= nowDate ? message : "";
-  verificationObj.BirthDate = id.value === "" ? false : true;
+  verificationObj.BirthDate = !(id.value == "");
 };
 
 // ---- Quantity Validation
 const checkQuantity = (id, serial, message) => {
-  errorMsg[serial].innerHTML = id.value === "" ? message : "";
-  verificationObj.Quantity = id.value === "" ? false : true;
+  errorMsg[serial].innerHTML = id.value == "" ? message : "";
+  verificationObj.Quantity = !(id.value == "");
 };
 
-// ---- Location Validation
+// ---- Creating a function for Location Validation
 const checkLocation = (serial, message) => {
+  //Creating a for loop to check all the radio buttons
   for (let cityNum = 0; cityNum < 6; cityNum++) {
     if (country[cityNum].checked) {
-      console.log(country[cityNum].value);
       errorMsg[serial].innerHTML = "";
+      //Updating the verificationObj value
       verificationObj.Location = true;
 
+      //Changing the border color of location radio buttons to green when select a city
       for (let checkboxBorder = 0; checkboxBorder < 6; checkboxBorder++) {
         document.getElementsByClassName("checkbox-icon")[
           checkboxBorder
         ].style.borderColor = "green";
       }
-
       return;
     }
+    //The changes when the value is false
+    //Updating the verificationObj value
     verificationObj.Location = false;
     errorMsg[serial].innerHTML = message;
-    document.getElementsByClassName("checkbox-icon")[cityNum].style.borderColor =
-      "red";
+    document.getElementsByClassName("checkbox-icon")[
+      cityNum
+    ].style.borderColor = "red";
   }
 };
 
-// ---- Terms Agreement Validation
+// ---- Creating a function for agreement validation
 const termsAgreement = (serial, message) => {
   errorMsg[serial].innerHTML = agreeToTerms.checked ? "" : message;
-  verificationObj.Terms = agreeToTerms.checked ? true : false;
+  verificationObj.Terms = agreeToTerms.checked;
 };
 
-// ---------------- Form Submition Function ----------------
+// ---------------- Creating a function for submission ----------------
 
 const validate = (e) => {
   e.preventDefault();
@@ -145,6 +151,7 @@ const validate = (e) => {
   termsAgreement(6, "You must check to agree to terms and conditions.");
 
   if (
+    //Check verificationObj Values of the form before submitting
     verificationObj.FirstName &&
     verificationObj.LastName &&
     verificationObj.Email &&
@@ -153,9 +160,11 @@ const validate = (e) => {
     verificationObj.Location &&
     verificationObj.Terms
   ) {
+    //Change styles to display submit message
     form.style.display = "none";
     close_btn.style.display = "block";
     successMsg.style.display = "block";
   }
+  //If everything is fales, return
   return;
 };
