@@ -139,7 +139,7 @@ const termsAgreement = (serial, message) => {
 
 // ---------------- Creating a function for submission ----------------
 
-const validate = (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
 
   checkFirstName(firstName, 0, "Please enter 2+ characters for name field.");
@@ -150,6 +150,7 @@ const validate = (e) => {
   checkLocation(5, "You must choose one option.");
   termsAgreement(6, "You must check to agree to terms and conditions.");
 
+  //Submission condition
   if (
     //Check verificationObj Values of the form before submitting
     verificationObj.FirstName &&
@@ -160,11 +161,10 @@ const validate = (e) => {
     verificationObj.Location &&
     verificationObj.Terms
   ) {
+    //If verificationObj Values are true, submit
     //Change styles to display submit message
     form.style.display = "none";
     close_btn.style.display = "block";
     successMsg.style.display = "block";
   }
-  //If everything is fales, return
-  return;
 };
