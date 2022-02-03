@@ -44,7 +44,7 @@ const firstName = document.getElementById("first"),
 
 //Creating a verification object for validation errors
 // The verification values must be true to submit the form
-let verificationObj = {
+const verificationObj = {
   FirstName: false,
   LastName: false,
   Email: false,

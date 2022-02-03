@@ -4,6 +4,9 @@
   color: red;
   font-weight: thin;
 }
+.checkbox-label:hover {
+  cursor: pointer;
+}
 .checkbox2-label {
   margin-top: 11px;
 }
