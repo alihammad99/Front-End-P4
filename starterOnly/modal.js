@@ -39,7 +39,17 @@ const firstName = document.getElementById("first"),
   submit = document.getElementById("submit"),
   errorMsg = document.getElementsByClassName("error");
 
-  // ---------------- Form Validation ----------------
+  let verification = {
+    FirstName: false,
+    LastName: false,
+    Email: false,
+    BirthDate: false,
+    Quantity: false,
+    Location: false,
+    Terms: false,
+  };
+
+// ---------------- Form Validation ----------------
 
 // ---- First Name Validation
 const checkFirstName = (id, serial, message) => {
@@ -102,4 +112,30 @@ const checkLocation = (serial, message) => {
 const termsAgreement = (serial, message) => {
   errorMsg[serial].innerHTML = agreeToTerms.checked ? "" : message;
   verification.Terms = agreeToTerms.checked ? true : false;
+};
+
+const validate = (e) => {
+  e.preventDefault();
+
+  checkFirstName(firstName, 0, "Please enter 2+ characters for name field.");
+  checkLastName(lastName, 1, "Please enter 2+ characters for name field.");
+  checkEmail(email, 2, "Please add a correct email address.");
+  checkBirth(birthdate, 3, "You must enter your date of birth.");
+  checkQuantity(quantity, 4, "Please add a quantity");
+  checkLocation(5, "You must choose one option.");
+  termsAgreement(6, "You must check to agree to terms and conditions.");
+
+
+  if (
+    verification.FirstName === true &&
+    verification.LastName === true &&
+    verification.Email === true &&
+    verification.BirthDate === true &&
+    verification.Quantity === true &&
+    verification.Location === true &&
+    verification.Terms === true
+  ) {
+    console.log("Success")
+  }
+  return;
 };
