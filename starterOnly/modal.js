@@ -28,6 +28,7 @@ function closeWindow() {
 }
 
 // Form Variables
+
 const firstName = document.getElementById("first"),
   lastName = document.getElementById("last"),
   email = document.getElementById("email"),
@@ -37,17 +38,19 @@ const firstName = document.getElementById("first"),
   agreeToTerms = document.getElementById("checkbox1"),
   form = document.getElementById("form"),
   submit = document.getElementById("submit"),
+  close_btn = document.getElementById("close-btn"),
+  successMsg = document.getElementById("form-success-message"),
   errorMsg = document.getElementsByClassName("error");
 
-  let verification = {
-    FirstName: false,
-    LastName: false,
-    Email: false,
-    BirthDate: false,
-    Quantity: false,
-    Location: false,
-    Terms: false,
-  };
+let verification = {
+  FirstName: false,
+  LastName: false,
+  Email: false,
+  BirthDate: false,
+  Quantity: false,
+  Location: false,
+  Terms: false,
+};
 
 // ---------------- Form Validation ----------------
 
@@ -114,6 +117,8 @@ const termsAgreement = (serial, message) => {
   verification.Terms = agreeToTerms.checked ? true : false;
 };
 
+// ---------------- Form Submition Function ----------------
+
 const validate = (e) => {
   e.preventDefault();
 
@@ -125,7 +130,6 @@ const validate = (e) => {
   checkLocation(5, "You must choose one option.");
   termsAgreement(6, "You must check to agree to terms and conditions.");
 
-
   if (
     verification.FirstName === true &&
     verification.LastName === true &&
@@ -135,7 +139,9 @@ const validate = (e) => {
     verification.Location === true &&
     verification.Terms === true
   ) {
-    console.log("Success")
+    form.style.display = "none";
+    close_btn.style.display = "block";
+    successMsg.style.display = "block";
   }
   return;
 };
